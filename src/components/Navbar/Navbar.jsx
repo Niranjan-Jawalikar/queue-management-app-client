@@ -1,10 +1,10 @@
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
 
-export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
+export default function Navbar({ token, setToken }) {
   const handleLogout = () => {
     localStorage.removeItem("token");
-    setIsLoggedIn(false);
+    setToken(null);
   };
   return (
     <nav className="navbar">
@@ -14,7 +14,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
         </Link>
       </div>
       <div className="navbar-actions">
-        {!isLoggedIn ? (
+        {!token ? (
           <>
             <Link to="/login" className="nav-button">
               Login

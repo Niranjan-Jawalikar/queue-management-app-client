@@ -4,7 +4,8 @@ import axios from "../../axios";
 import { Modal } from "../Modal/Modal.jsx";
 import "./Queues.scss";
 
-export const Queues = () => {
+export const Queues = ({ token }) => {
+  console.log(token);
   const [queues, setQueues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -39,7 +40,7 @@ export const Queues = () => {
       }
     };
     fetchQueues();
-  }, []);
+  }, [token]);
   return (
     <div className="queues">
       <div className="queues-header">
@@ -50,8 +51,10 @@ export const Queues = () => {
       </div>
       {loading ? (
         <p>Loading...</p>
-      ) : (
+      ) : queues.length > 0 ? (
         queues.map((queue) => <Queue key={queue._id} queue={queue} />)
+      ) : (
+        <p className="no-queues-message">No queues found.</p>
       )}
       {showModal && (
         <Modal

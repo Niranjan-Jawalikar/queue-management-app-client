@@ -8,28 +8,22 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
 import { Queues } from "./components/Queue/Queues.jsx";
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [token, setToken] = useState(localStorage.getItem("token"));
   return (
     <div className="app-container">
-      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Navbar token={token} setToken={setToken} />
       <main className="main-content">
         <Routes>
           <Route
             path="/"
             element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Queues />
+              <ProtectedRoute token={token}>
+                <Queues token={token} />
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route
-            path="/signup"
-            element={<Signup setIsLoggedIn={setIsLoggedIn} />}
-          />
+          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route path="/signup" element={<Signup setToken={setToken} />} />
         </Routes>
       </main>
     </div>

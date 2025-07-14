@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Auth.scss";
 import axios from "../../axios";
 
-export default function Login({setIsLoggedIn}) {
+export default function Login({setToken}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +22,7 @@ export default function Login({setIsLoggedIn}) {
 
       const token = res.data.token;
       localStorage.setItem("token", token);
-      setIsLoggedIn(true);
+      setToken(token);
       navigate("/");
     } catch (error) {
       const message =
